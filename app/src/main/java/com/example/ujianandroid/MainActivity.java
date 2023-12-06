@@ -18,9 +18,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText edNamaDepan = (EditText) findViewById(R.id.edNamaDepan);
-        EditText edNamaBelakang = (EditText) findViewById(R.id.edNamaBelakang);
-        Button btnSimpan = (Button) findViewById(R.id.btnSimpan);
+        EditText edNamaDepan = findViewById(R.id.edNamaDepan);
+        EditText edNamaBelakang = findViewById(R.id.edNamaBelakang);
+        Button btnSimpan = findViewById(R.id.btnSimpan);
 
         ArrayList<String> daftar_nama = new ArrayList<>();
 
@@ -32,14 +32,26 @@ public class MainActivity extends AppCompatActivity {
                 String isian_nama_depan = edNamaDepan.getText().toString();
                 String isian_nama_belakang = edNamaBelakang.getText().toString();
 
-                if(isian_nama_depan.isEmpty()){
+                if (isian_nama_depan.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Isian masih kosong", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     String nama_lengkap = isian_nama_depan.concat(" ").concat(isian_nama_belakang);
                     daftar_nama.clear();
-                    daftar_nama.add(nama_lengkap);
+
+                    // perulangan 20x
+                    for (int i = 0; i < 20; i++) {
+                        // Skip bil genap
+                        if (i % 2 == 0) {
+                            continue;
+                        }
+
+                        // tampilkan list
+                        daftar_nama.add("Index " + i + ": " + nama_lengkap);
+                    }
+
                     edNamaDepan.setText("");
                     edNamaBelakang.setText("");
+
                     intent_list.putStringArrayListExtra("daftar_nama", daftar_nama);
                     startActivity(intent_list);
                 }
